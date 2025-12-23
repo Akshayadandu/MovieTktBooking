@@ -1,1 +1,85 @@
+CREATE DATABASE movie_ticket;
+USE movie_ticket;
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN','USER') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+CREATE TABLE theatres (
+    theatre_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    admin_id INT,
+    FOREIGN KEY (admin_id) REFERENCES users(user_id)
+);
+CREATE TABLE screens (
+    screen_id INT AUTO_INCREMENT PRIMARY KEY,
+    theatre_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    total_seats INT NOT NULL,
+    FOREIGN KEY (theatre_id) REFERENCES theatres(theatre_id)
+);
+CREATE TABLE seats (
+    seat_id INT AUTO_INCREMENT PRIMARY KEY,
+    screen_id INT NOT NULL,
+    seat_number VARCHAR(10) NOT NULL,
+    is_booked BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (screen_id) REFERENCES screens(screen_id)
+);
 
+CREATE TABLE movies (
+    movie_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    description TEXT,
+    duration_minutes INT NOT NULL,
+    release_date DATE,
+    image_url VARCHAR(255),
+    language VARCHAR(50)
+);
+CREATE TABLE shows (
+    show_id INT AUTO_INCREMENT PRIMARY KEY,
+    movie_id INT NOT NULL,
+    screen_id INT NOT NULL,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (movie_id) REFERENCES movies(movie_id),
+    FOREIGN KEY (screen_id) REFERENCES screens(screen_id)
+);
+CREATE TABLE bookings (
+    booking_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    show_id INT NOT NULL,
+    booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_amount DECIMAL(10,2) NOT NULL,
+    qr_code_path VARCHAR(255),
+    pdf_path VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (show_id) REFERENCES shows(show_id)
+);
+CREATE TABLE booking_seats (
+    booking_id INT,
+    seat_id INT,
+    PRIMARY KEY (booking_id, seat_id),
+    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id),
+    FOREIGN KEY (seat_id) REFERENCES seats(seat_id)
+);
+CREATE TABLE payments (
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    payment_method VARCHAR(50),
+    payment_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    transaction_id VARCHAR(100),
+    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id)
+);
+
+CREATE TABLE cities (
+    city_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
