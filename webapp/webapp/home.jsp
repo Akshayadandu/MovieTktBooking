@@ -5,89 +5,12 @@
 <head>
 <title>Movie Ticket Booking</title>
 
-<style>
-body{
-    margin:0;
-    font-family:Segoe UI, Arial;
-    background:#f4f6fb;
-}
-
-/* NAVBAR */
-.navbar{
-    background:linear-gradient(90deg,#0f2027,#203a43,#2c5364);
-    color:white;
-    padding:15px 25px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-.navbar a{
-    color:white;
-    text-decoration:none;
-    margin:0 12px;
-    font-weight:500;
-}
-.navbar a:hover{
-    text-decoration:underline;
-}
-
-/* CONTAINER */
-.container{
-    padding:40px;
-    text-align:center;
-}
-
-/* CARDS */
-.card-box{
-    display:flex;
-    justify-content:center;
-    gap:25px;
-    margin-top:30px;
-}
-.card{
-    background:white;
-    width:260px;
-    padding:25px;
-    border-radius:12px;
-    box-shadow:0 8px 18px rgba(0,0,0,0.1);
-}
-.card h3{color:#2c5364;}
-.card p{color:#555;}
-
-/* BUTTON */
-.btn{
-    display:inline-block;
-    padding:10px 18px;
-    background:#007bff;
-    color:white;
-    border-radius:6px;
-    text-decoration:none;
-    margin-top:10px;
-}
-.btn:hover{background:#0056b3;}
-
-/* FOOTER */
-.footer{
-    background:#1c1c1c;
-    color:white;
-    text-align:center;
-    padding:15px;
-    margin-top:50px;
-}
-</style>
-
+<link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<div class="navbar">
-    <div><b>Movie Ticket Booking</b></div>
-    <div>
-        <a href="home">Home</a>
-        <a href="movies">Movies</a>
-        <a href="myBookings">My Bookings</a>
-    </div>
-    <div>Welcome, Akshaya</div>
-</div>
+<jsp:include page="main/header.jsp"/>
 
 <div class="container">
     <h1>Welcome to Movie Ticket Booking</h1>
@@ -114,10 +37,8 @@ body{
     </div>
 </div>
 
-<div class="footer">
-    © 2025 YP Movie Ticket Booking
-</div>
+<jsp:include page="main/footer.jsp"/>
 
 </body>
 </html>
-
+ 
