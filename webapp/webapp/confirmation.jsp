@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,3 +39,4 @@ body{background:#f0f4f8;font-family:Arial;}
 
 </body>
 </html>
+
